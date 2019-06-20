@@ -1,0 +1,16 @@
+{
+  "name": "productosapi",
+  "version": "1.0.0",
+  "description": "API de ANWO donde se puede obtener informacion de los productos como stock, descripcion, precio.",
+  "main": "productos.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Matias Fuentes",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "mariadb": "^2.0.5"
+  }
+}
