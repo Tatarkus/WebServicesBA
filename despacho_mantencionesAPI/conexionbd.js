@@ -1,11 +1,10 @@
 const sqlite3 = require('sqlite3').verbose();
- 
-// open the database
-var db = new sqlite3.Database('C:/Users/tomas/Documents/GitHub/ClientesBA/instance/clientesba.sqlite', sqlite3.OPEN_READWRITE, (err) => {
+
+let db = new sqlite3.Database('../../ClientesBA/instance/clientesba.sqlite', (err) => {
   if (err) {
     console.error(err.message);
   }
-  console.log('Connected to the usuarios database.');
+  console.log('Conectado a clientesba.');
 });
 
 module.exports = db;
