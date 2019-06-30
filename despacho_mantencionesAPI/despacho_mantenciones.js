@@ -46,3 +46,46 @@ app.get("/mantenciones/:idUsuario", (req, res, next) => {
 	
 
 });
+
+app.get("/despachos", (req, res, next) => {
+  db.serialize(() => {
+      db.all(`SELECT * FROM despacho`, (err, rows) => {
+        if (err) {
+          console.error(err.message);
+        }
+        res.json(rows);
+      });
+   
+    });
+     
+    
+
+});
+
+app.get("/despachos/:idUsuario", (req, res, next) => {
+	db.serialize(() => {
+        db.all(`SELECT * FROM despacho where id_usuario=?`,[req.params.idUsuario], (err, rows) => {
+          if (err) {
+            console.error(err.message);
+          }
+          res.json(rows);
+        });
+
+    });
+  
+});
+
+app.get("/despachos/user/:idUsuario/product/:idProducto", (req, res, next) => {
+  const usuario = req.params.idUsuario;
+  const producto = req.params.idProducto;
+  db.serialize(() => {
+    db.all(`SELECT * FROM despacho where id_usuario=? and id_producto=?`,usuario, producto, (err, rows) => {
+      if (err) {
+        console.error(err.message);
+      }
+      res.json(rows);
+    });
+
+});
+ 
+});
