@@ -61,14 +61,6 @@ describe("Pruebas unitarias para API despacho_mantenciones",function(){
     });
   });
 
- it('El tamaño del arreglo de mantenciones debe ser 0 porque el codigo de usuario no existe', function(){
-  usuarioInexistente="AWASD1345";
- server.get('/mantenciones/'+usuarioInexistente)   
- .end(function(err,res){
-  assert.equal(res.body.length,0); 
-    });
-  });
-
 
 
 
