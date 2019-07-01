@@ -1,6 +1,7 @@
 var express    = require('express');
 var app        = express(); 
 var cors = require('cors')
+var router = express.Router();
 var port = process.env.PORT || 3001;
 
 app.use(cors());
@@ -10,6 +11,10 @@ console.log('Conectandose con la base de datos...');
 
 var db = require('./conexionbd');
 console.log( db != null ? "Conexión Exitosa" : "Error en la conexión");
+
+app.get('/', (req, res) => {
+  return res.send('Recibido un get');
+});
 
 app.all('/*', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -64,9 +69,11 @@ app.get("/despachos", (req, res, next) => {
 
 app.get("/despachos/:idUsuario", (req, res, next) => {
 	db.serialize(() => {
-        db.all(`SELECT * FROM despacho where id_usuario=?`,[req.params.idUsuario], (err, rows) => {
+        db.all(`SELECT * FROM despacho where id_usuario=? order by id_despacho desc`,[req.params.idUsuario], (err, rows) => {
           if (err) {
+            
             console.error(err.message);
+            
           }
           res.json(rows);
         });
@@ -79,7 +86,7 @@ app.get("/despachos/user/:idUsuario/product/:idProducto", (req, res, next) => {
   const usuario = req.params.idUsuario;
   const producto = req.params.idProducto;
   db.serialize(() => {
-    db.all(`SELECT * FROM despacho where id_usuario=? and id_producto=?`,usuario, producto, (err, rows) => {
+    db.all(`SELECT * FROM despacho where id_usuario=? and id_producto=? order by id_despacho desc`,usuario, producto, (err, rows) => {
       if (err) {
         console.error(err.message);
       }
@@ -89,3 +96,4 @@ app.get("/despachos/user/:idUsuario/product/:idProducto", (req, res, next) => {
 });
  
 });
+module.exports =app;
